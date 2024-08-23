@@ -6,7 +6,7 @@ class MyLineReg:
     def __init__(self, n_iter=100, learning_rate=0.1, metric=None, reg=None, l1_coef=0, l2_coef=0, sgd_sample=None, random_state=42):
         self.n_iter = n_iter
         self.learning_rate = learning_rate
-        self.weights = None
+        self.weights = None # Инициализируем веса как None
         self.metric = metric
         self.best_score = None
         self.last_metric = 'mae'
@@ -102,6 +102,22 @@ class MyLineReg:
         return score
 
 # Тестовые данные
+# Пример использования
+X = pd.DataFrame({'x1': [1, 2, 3, 4, 5], 'x2': [2, 4, 6, 8, 10]})
+y = np.array([3, 7, 11, 15, 19])
+
+# Создаем модель
+model = MyLineReg(n_iter=500, learning_rate=0.01)
+
+# Обучаем модель 
+model.fit(X, y, verbose=100)
+
+# Получаем коэффициенты модели 
+coef = model.get_coef()
+
+print(model) # Вывод: MyLineReg class: n_iter=500, learning_rate=0.01, weights=[..., ..., ...]
+print(f"Коэффициенты модели: {coef}") 
+
 from sklearn.datasets import make_regression
 X, y = make_regression(n_samples=1000, n_features=10, random_state=42)
 line = MyLineReg(n_iter=100, learning_rate=0.1, metric='mae', sgd_sample=0.1)
